@@ -1,9 +1,10 @@
 
    const timer = (deadline) => {
-      console.log(deadline);
+      
       const timerHour = document.getElementById('timer-hours')
       const timerMinutes = document.getElementById('timer-minutes')
       const timerSeconds = document.getElementById('timer-seconds')
+      const timerAction = document.querySelector('.timer-action')
  
      const getTimeRemaining = () => {
          
@@ -18,31 +19,29 @@
          
      }
 
-      const updateClock = () => {
-         
+      const updateClock = (interval) => {
+                             
          let getTime = getTimeRemaining()  
+
+         if (getTime.timeRemaining <= 0) {
+            timerHour.textContent = "00"
+            timerMinutes.textContent = "00"
+            timerSeconds.textContent = "00"
+            timerAction.textContent = "На данный момент акция закончилась..."
+            clearInterval(interval)
+         } else {
          
          timerHour.textContent = getTime.hours < 10 ? '0' + getTime.hours : getTime.hours
          timerMinutes.textContent = getTime.minutes < 10 ? '0' + getTime.minutes : getTime.minutes
          timerSeconds.textContent = getTime.seconds < 10 ? '0' + getTime.seconds : getTime.seconds
-
+         }
       }
       
       const showTime = () => {
-
-         let getTime = getTimeRemaining()
-         let interval
-         if (getTime.timeRemaining > 0) {
-               interval = setInterval(updateClock, 1000)
-            }  else  {
-            timerHour.textContent = "00"
-            timerMinutes.textContent = "00"
-            timerSeconds.textContent = "00"
-
-            clearInterval(interval)
-
-            }  
-
+            
+            let interval
+            interval = setInterval(updateClock, 1000, interval)
+            
       }
 
       showTime()
