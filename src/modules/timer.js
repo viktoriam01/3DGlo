@@ -43,7 +43,7 @@
             interval = setInterval(updateClock, 1000, interval)
             
       }
-
+      updateClock()
       showTime()
 }   
    
